@@ -1,0 +1,189 @@
+/* General Body Styles */
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #e5ddd5; /* A subtle, textured grey like WhatsApp's background */
+}
+
+/* Main Chat Container */
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: #f7f7f7;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Header Styling */
+.chat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #007bff;
+  color: white;
+  padding: 15px 20px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Message List Styling */
+.message-list {
+  flex-grow: 1;
+  padding: 20px;
+  overflow-y: auto;
+  list-style-type: none;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Individual Message Bubbles */
+.message {
+  position: relative;
+  padding: 10px 15px;
+  border-radius: 18px;
+  margin-bottom: 10px;
+  max-width: 75%; /* The bubble can grow up to 75% of the container width */
+  line-height: 1.4;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  /* This is the key for text wrapping */
+  word-wrap: break-word; 
+}
+
+/* "My" messages (sent by the user) */
+.message.my-message {
+  background-color: #dcf8c6;
+  color: #333;
+  align-self: flex-end; /* Pushes the bubble to the right */
+}
+
+/* "Other" messages (received from others) */
+.message.other-message {
+  background-color: #ffffff;
+  border: 1px solid #eee;
+  align-self: flex-start; /* Pushes the bubble to the left */
+}
+
+.message-sender {
+  font-weight: bold;
+  font-size: 0.8rem;
+  margin-bottom: 4px;
+  color: #007bff;
+}
+
+/* Message Input Form */
+.message-form {
+  display: flex;
+  padding: 15px;
+  background-color: #f0f0f0;
+  border-top: 1px solid #ddd;
+}
+
+.message-input {
+  flex-grow: 1;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  font-size: 1rem;
+  margin-right: 10px;
+}
+
+.message-input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0,123,255,0.2);
+}
+
+.send-button {
+  padding: 12px 25px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.send-button:hover {
+  background-color: #0056b3;
+}
+
+/* Typing Indicator Styling */
+.typing-indicator {
+  height: 25px;
+  padding: 0 20px;
+  font-style: italic;
+  color: #888;
+  font-size: 0.9rem;
+}
+
+/* Logout Button Styling */
+.logout-button {
+  background: #dc3545;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.logout-button:hover {
+  background: #c82333;
+}
+
+/* Delete Button Styling */
+.delete-button {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: #ff4d4d;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  text-align: center;
+  cursor: pointer;
+  font-weight: bold;
+  opacity: 0; /* Hidden by default */
+  transition: opacity 0.2s;
+}
+
+.message:hover .delete-button {
+  opacity: 1; /* Show on hover */
+}
+/* ... at the end of the file ... */
+
+.message-content {
+  /* Add some padding to make space for the status icon */
+  padding-right: 50px; 
+}
+
+.message-status {
+  position: absolute;
+  bottom: 8px;
+  right: 12px;
+  font-size: 0.8rem;
+  color: #888;
+}
+
+/* Change color of seen ticks */
+.message-status:is(✓✓) {
+  color: #34b7f1; /* A nice blue for seen */
+}

@@ -1,0 +1,63 @@
+.dashboard-container {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  background-color: #fff;
+}
+
+.sidebar {
+  width: 30%;
+  min-width: 300px;
+  max-width: 400px;
+  height: 100vh;
+  border-right: 1px solid #ddd;
+}
+
+.main-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.main-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  height: 60px;
+  border-bottom: 1px solid #ddd;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.chat-area {
+  flex-grow: 1;
+  /* This will contain either the Welcome or ChatWindow component */
+  display: flex;
+  flex-direction: column;
+  position: relative; /* Needed for absolute positioning inside */
+}
+
+/* Redefine chat window styles that were previously global */
+.chat-window {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  position: absolute; /* Take up the full chat-area space */
+}
+/* ... at the end of the file ... */
+.new-group-btn {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+.new-group-btn:hover {
+  background-color: #218838;
+}
