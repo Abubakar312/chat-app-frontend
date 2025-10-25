@@ -1,7 +1,7 @@
-const API_URL = 'https://my-chat-app-backend123.onrender.com';
+
 import React, { useState, useEffect } from 'react';
 import './NewGroupModal.css';
-
+const API_URL = 'https://my-chat-app-backend123.onrender.com';
 const NewGroupModal = ({ onClose, onGroupCreated }) => {
   const [users, setUsers] = useState([]);
   const [groupName, setGroupName] = useState('');

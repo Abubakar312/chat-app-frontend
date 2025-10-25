@@ -1,4 +1,4 @@
-const API_URL = 'https://my-chat-app-backend123.onrender.com';
+
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import io from 'socket.io-client';
@@ -10,7 +10,7 @@ import Welcome from '../components/Welcome';
 import NewGroupModal from '../components/NewGroupModal';
 import AddMemberModal from '../components/AddMemberModal'; // <-- Import new modal
 import './ChatPage.css';
-
+const API_URL = 'https://my-chat-app-backend123.onrender.com';
 const ChatPage = () => {
   const [user, setUser] = useState(null);
   const [conversations, setConversations] = useState([]);

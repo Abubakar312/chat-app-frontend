@@ -1,9 +1,8 @@
-const API_URL = 'https://my-chat-app-backend123.onrender.com';
 
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './AuthForm.css'; // We reuse the same CSS
-
+const API_URL = 'https://my-chat-app-backend123.onrender.com';
 const Login = ( ) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
