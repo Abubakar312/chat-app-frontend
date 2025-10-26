@@ -1,13 +1,11 @@
-
 import React, { useState, useEffect } from 'react';
 import './NewGroupModal.css';
-const API_URL = 'https://my-chat-app-backend123.onrender.com';
+
 const NewGroupModal = ({ onClose, onGroupCreated }) => {
-  const [users, setUsers] = useState([]);
   const [groupName, setGroupName] = useState('');
+  const [allUsers, setAllUsers] = useState([]);
   const [selectedUsers, setSelectedUsers] = useState([]);
 
-  // Fetch all users to display them as options
   useEffect(() => {
     const fetchUsers = async () => {
       const token = localStorage.getItem('token');
@@ -16,7 +14,7 @@ const NewGroupModal = ({ onClose, onGroupCreated }) => {
           headers: { 'x-auth-token': token },
         } );
         const data = await response.json();
-        setUsers(data);
+        setAllUsers(data);
       } catch (error) {
         console.error('Failed to fetch users:', error);
       }
@@ -24,21 +22,12 @@ const NewGroupModal = ({ onClose, onGroupCreated }) => {
     fetchUsers();
   }, []);
 
-  const handleUserSelect = (userId) => {
-    setSelectedUsers(prev =>
-      prev.includes(userId)
-        ? prev.filter(id => id !== userId) // Deselect if already selected
-        : [...prev, userId] // Select if not selected
-    );
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!groupName || selectedUsers.length === 0) {
       alert('Please provide a group name and select at least one member.');
       return;
     }
-
     const token = localStorage.getItem('token');
     try {
       const response = await fetch('https://my-chat-app-backend123.onrender.com/api/conversations', {
@@ -49,17 +38,22 @@ const NewGroupModal = ({ onClose, onGroupCreated }) => {
         },
         body: JSON.stringify({ name: groupName, members: selectedUsers } ),
       });
-
       if (!response.ok) throw new Error('Failed to create group');
-      
       const newGroup = await response.json();
-      onGroupCreated(newGroup); // Pass the new group back to the parent
-      onClose(); // Close the modal
-
+      onGroupCreated(newGroup);
+      onClose();
     } catch (error) {
       console.error('Group creation error:', error);
       alert(error.message);
     }
+  };
+
+  const handleUserSelect = (userId) => {
+    setSelectedUsers(prev =>
+      prev.includes(userId)
+        ? prev.filter(id => id !== userId)
+        : [...prev, userId]
+    );
   };
 
   return (
@@ -72,18 +66,21 @@ const NewGroupModal = ({ onClose, onGroupCreated }) => {
             placeholder="Group Name"
             value={groupName}
             onChange={(e) => setGroupName(e.target.value)}
-            className="group-name-input"
             required
+            className="group-name-input"
           />
           <h3>Select Members</h3>
           <ul className="user-list">
-            {users.map(user => (
-              <li
-                key={user._id}
-                onClick={() => handleUserSelect(user._id)}
-                className={selectedUsers.includes(user._id) ? 'selected' : ''}
-              >
-                {user.username}
+            {allUsers.map(user => (
+              <li key={user._id} className="user-list-item">
+                <label>
+                  <input
+                    type="checkbox"
+                    checked={selectedUsers.includes(user._id)}
+                    onChange={() => handleUserSelect(user._id)}
+                  />
+                  {user.username}
+                </label>
               </li>
             ))}
           </ul>

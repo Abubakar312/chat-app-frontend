@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import '../App.css';
 
-const ChatWindow = ({ conversation, user, socket, initialMessages, onAddMemberClick }) => {
+const ChatWindow = ({ conversation, user, socket, initialMessages, onManageGroupClick }) => {
   const [messages, setMessages] = useState(initialMessages);
   const [input, setInput] = useState('');
   const messagesEndRef = useRef(null);
@@ -59,7 +59,7 @@ const ChatWindow = ({ conversation, user, socket, initialMessages, onAddMemberCl
         <div>{chatName}</div>
         {/* --- ADD MEMBER BUTTON --- */}
         {conversation.isGroup && conversation.groupAdmin === user.id && (
-          <button onClick={onAddMemberClick} className="add-member-btn">+ Add</button>
+          <button onClick={onManageGroupClick} className="add-member-btn">Manage</button>
         )}
       </header>
       <ul className="message-list">

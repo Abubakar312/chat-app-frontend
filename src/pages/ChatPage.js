@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import io from 'socket.io-client';
@@ -8,21 +7,20 @@ import Sidebar from '../components/Sidebar';
 import ChatWindow from '../components/ChatWindow';
 import Welcome from '../components/Welcome';
 import NewGroupModal from '../components/NewGroupModal';
-import AddMemberModal from '../components/AddMemberModal'; // <-- Import new modal
+import AddMemberModal from '../components/AddMemberModal';
 import './ChatPage.css';
-const API_URL = 'https://my-chat-app-backend123.onrender.com';
+
 const ChatPage = () => {
   const [user, setUser] = useState(null);
   const [conversations, setConversations] = useState([]);
   const [selectedConversation, setSelectedConversation] = useState(null);
   const [messages, setMessages] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isAddMemberModalOpen, setIsAddMemberModalOpen] = useState(false); // <-- New state
+  const [isAddMemberModalOpen, setIsAddMemberModalOpen] = useState(false);
   const [onlineUsers, setOnlineUsers] = useState([]);
   const navigate = useNavigate();
   const socketRef = useRef(null);
 
-  // Main setup effect - runs only once
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (!token) { navigate('/login'); return; }
@@ -68,14 +66,13 @@ const ChatPage = () => {
     };
   }, [navigate]);
 
-  // Effect to fetch messages when a conversation is selected
   useEffect(() => {
     if (!selectedConversation) {
       setMessages([]);
       return;
     }
     const token = localStorage.getItem('token');
-    fetch('https://my-chat-app-backend123.onrender.com/api/conversations', { headers: { 'x-auth-token': token } } )
+    fetch(`https://my-chat-app-backend123.onrender.com/api/messages/${selectedConversation._id}`, { headers: { 'x-auth-token': token } } )
       .then(res => res.json())
       .then(data => {
         if (Array.isArray(data)) {
@@ -100,7 +97,7 @@ const ChatPage = () => {
   const handleStartDirectMessage = async (recipientId) => {
     const token = localStorage.getItem('token');
     try {
-      const response = await fetch(`http:// https://my-chat-app-backend123.onrender.com/api/conversations/dm/${recipientId}`, { method: 'POST', headers: { 'x-auth-token': token } } );
+      const response = await fetch(`https://my-chat-app-backend123.onrender.com/api/conversations/dm/${recipientId}`, { method: 'POST', headers: { 'x-auth-token': token } } );
       const dmConversation = await response.json();
       const existingConvo = conversations.find(c => c._id === dmConversation._id);
       if (!existingConvo) {
@@ -111,7 +108,6 @@ const ChatPage = () => {
     } catch (error) { console.error('Failed to start DM:', error); }
   };
   
-  // --- NEW HANDLER ---
   const handleMemberAdded = (updatedConversation) => {
     setConversations(prev => 
       prev.map(c => c._id === updatedConversation._id ? updatedConversation : c)
@@ -131,7 +127,6 @@ const ChatPage = () => {
     <>
       {isModalOpen && <NewGroupModal onClose={() => setIsModalOpen(false)} onGroupCreated={handleGroupCreated} />}
       
-      {/* --- NEW MODAL RENDER --- */}
       {isAddMemberModalOpen && selectedConversation && (
         <AddMemberModal
           onClose={() => setIsAddMemberModalOpen(false)}
@@ -164,7 +159,7 @@ const ChatPage = () => {
                 user={user}
                 socket={socketRef.current}
                 initialMessages={messages}
-                onAddMemberClick={() => setIsAddMemberModalOpen(true)} // <-- Pass handler
+                onAddMemberClick={() => setIsAddMemberModalOpen(true)}
               />
             ) : (
               <Welcome username={user.username} />

@@ -187,3 +187,74 @@ body {
 .message-status:is(✓✓) {
   color: #34b7f1; /* A nice blue for seen */
 }
+/* ... at the end of the file ... */
+.add-member-form {
+  display: flex;
+}
+
+.member-list {
+  list-style: none;
+  padding: 0;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+.member-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px;
+  border-bottom: 1px solid #eee;
+}
+
+.btn-remove {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+/* --- RESPONSIVE STYLES FOR MOBILE --- */
+@media (max-width: 768px) {
+  .dashboard-container {
+    flex-direction: column;
+    height: 100vh; /* Full viewport height */
+  }
+
+  .sidebar {
+    width: 100%;
+    height: 40%; /* Give sidebar a fixed portion of the screen */
+    border-right: none;
+    border-bottom: 1px solid #ddd;
+    flex-shrink: 0;
+  }
+
+  .main-content {
+    width: 100%;
+    height: 60%; /* The rest of the screen */
+  }
+
+  .main-header {
+    padding: 8px;
+    font-size: 0.9rem;
+  }
+  
+  .new-group-btn, .logout-button {
+    padding: 6px 8px;
+  }
+
+  /* Make modals full screen on mobile for better usability */
+  .modal-content {
+    width: 95%;
+    height: 80%;
+  }
+}
+.footer-credit {
+  position: absolute;
+  bottom: 20px;
+  text-align: center;
+  color: #888;
+  font-size: 0.9rem;
+}
